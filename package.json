@@ -1,6 +1,6 @@
 {
   "name": "promise-with-events",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0",
   "description": "Simple lib to use promises with events",
   "author": "Victor Bicudo <victor.mbicudo@gmail.com> (https://github.com/martinsbicudo)",
   "license": "MIT",
