@@ -9,7 +9,7 @@
 ![minified size](https://img.shields.io/bundlephobia/min/promise-with-events)
 ![npm](https://img.shields.io/npm/v/promise-with-events)
 
-<p>Simple lib to use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank">promises</a> with **events**</p>
+<p>Simple lib to use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank">promises</a> with <strong>events</strong></p>
 </div>
 
 <br>
@@ -69,7 +69,18 @@ onResolveEvents((error, resolve1) => {
 
 # Documentation
 
-- [single promise](#single-promise)
+- [watch events](#watch-events)
+  - [single promise](#single-promise)
+  - [multi promises](#multi-promises)
+  - [multi events](#multi-events)
+  - [auto start](#auto-start)
+  - [promise method](#promise-method)
+- [start events](#start-events)
+- [events](#events)
+  - [onStartEvents](#onstartevents)
+  - [onResolveEvents](#onresolveevents)
+  - [onRejectEvents](#onrejectevents)
+  - [onFinallyEvents](#onfinallyevents)
 
 ## Watch Events
 
@@ -117,23 +128,7 @@ createWatchEvent([promise1, promise2], {
 
 </details>
 
-## Start Events
-
-**Note**: Doesn't works with `autoStart: true`
-
-<details><summary><strong>Example</strong></summary>
-
-```ts
-import { startEvents } from "promise-with-events";
-
-startEvents(["key1"])
-
-startEvents(["key1", "key2"])
-```
-
-</details>
-
-## Single Promise
+### Single Promise
 
 ```ts
 import { createWatchEvent, startEvents, onResolveEvents } from "promise-with-events";
@@ -153,7 +148,7 @@ onResolveEvents((error, resolve1) => {
 }, ["key1"])
 ```
 
-## Multi Promises
+### Multi Promises
 
 <details><summary><strong>Example</strong></summary>
 
@@ -183,7 +178,7 @@ onResolveEvents((error, resolve1) => {
 
 </details>
 
-## Multi Events
+### Multi Events
 
 <details><summary><strong>Example</strong></summary>
 
@@ -228,7 +223,7 @@ onResolveEvents((error, resolve1, resolve2) => {
 
 </details>
 
-## Auto Start
+### Auto Start
 
 **Note**: `startEvents` doesn't  works with `autoStart` active
 **Possible values**: `true` | `false` (**default value** = `true`)
@@ -262,7 +257,7 @@ onResolveEvents((error, resolve1) => {
 
 </details>
 
-## Promise Method
+### Promise Method
 
 **Note**: `promiseMethod` doesn't works with `single promise`
 **Possible values**: `all` | `allSettled` | `any` | `race` (**default value** = `all`)
@@ -293,6 +288,22 @@ createWatchEvent([promiseExample1, promiseExample2], {
 onResolveEvents((error, resolve1) => {
   console.log(resolve1) //output = "example1"
 }, ["key1"])
+```
+
+</details>
+
+## Start Events
+
+**Note**: Doesn't works with `autoStart: true`
+
+<details><summary><strong>Example</strong></summary>
+
+```ts
+import { startEvents } from "promise-with-events";
+
+startEvents(["key1"])
+
+startEvents(["key1", "key2"])
 ```
 
 </details>
