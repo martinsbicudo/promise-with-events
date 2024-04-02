@@ -1,6 +1,6 @@
 <div align="center">
 
-<img title="styled-container-queries" alt="styled-container-queries" src="https://github.com/martinsbicudo/promise-with-events/blob/3b63ede978993a09919e6b2744e60c565283b9b4/public/logo.png" width="500px">
+<img title="promise-with-events" alt="promise-with-events" src="https://github.com/martinsbicudo/promise-with-events/blob/3b63ede978993a09919e6b2744e60c565283b9b4/public/logo.png" width="500px">
 
 <br>
 <br>
@@ -424,7 +424,7 @@ To contribute, make sure to follow the steps bellow:
 
 2. Make your changes, add unit tests (with `jest`) and test with `npm link`
 
-   On styled-container-queries project:
+   On promise-with-events project:
 
    ```shell
     npm link
