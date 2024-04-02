@@ -81,6 +81,8 @@ onResolveEvents((error, resolve1) => {
   - [onResolveEvents](#onresolveevents)
   - [onRejectEvents](#onrejectevents)
   - [onFinallyEvents](#onfinallyevents)
+- [advanced]
+  - [reuse watched events](#reuse-watched-events)
 
 ## Watch Events
 
@@ -130,6 +132,8 @@ createWatchEvent([promise1, promise2], {
 
 ### Single Promise
 
+<details><summary><strong>Example</strong></summary>
+
 ```ts
 import { createWatchEvent, startEvents, onResolveEvents } from "promise-with-events";
 
@@ -147,6 +151,8 @@ onResolveEvents((error, resolve1) => {
   console.log(resolve1) //output = "example1"
 }, ["key1"])
 ```
+
+</details>
 
 ### Multi Promises
 
@@ -408,6 +414,65 @@ onFinallyEvents((error, finally1, finally2) => {
   console.log(finally2.response)
   console.log(finally2.rerror)
 }, ["key1", "key2"])
+```
+
+</details>
+
+## Advanced
+
+### Reuse Watched Events
+
+<details><summary><strong>Example</strong></summary>
+
+```ts
+import { createWatchEvent, onResolveEvents } from "promise-with-events";
+
+const promiseExample1 = () => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, 1000, "example1");
+  });
+};
+
+const promiseExample2 = () => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, 2000, "example2");
+  });
+};
+
+const promiseExample3 = () => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, 1000, "example3");
+  });
+};
+
+const watchedPromise1 = createWatchEvent([promiseExample1, promiseExample2], {
+  eventName: "key1",
+  autoStart: true,
+  promiseMethod: "any",
+});
+
+const watchedPromise2 = createWatchEvent([watchedPromise1, promiseExample3], {
+  eventName: "key2",
+  autoStart: true,
+});
+
+createWatchEvent([watchedPromise1, watchedPromise2], {
+  eventName: "key3",
+  autoStart: true,
+  promiseMethod: "all",
+});
+
+onResolveEvents((error, resolve1) => {
+  console.log(resolve1); //output = "example1"
+}, ["key1"]);
+
+onResolveEvents((error, resolve2) => {
+  console.log(resolve2); //output = ["example1", "example3"]
+}, ["key2"]);
+
+onResolveEvents((error, resolve3) => {
+  console.log(resolve3); //output = ["example1", ["example1", "example3"]]
+}, ["key3"]);
 ```
 
 </details>
