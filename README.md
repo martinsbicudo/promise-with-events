@@ -60,11 +60,14 @@ const promiseExample1 = () => {
 createWatchEvent(promiseExample1, {
   eventName: "key1",
   autoStart: true,
-})
+});
 
-onResolveEvents((error, resolve1) => {
-  console.log(resolve1) //output = "example1"
-}, ["key1"])
+onResolveEvents(
+  (error, resolve1) => {
+    console.log(resolve1); //output = "example1"
+  },
+  ["key1"]
+);
 ```
 
 # Documentation
@@ -87,15 +90,16 @@ onResolveEvents((error, resolve1) => {
 ## Watch Events
 
 `createWatchEvent` receive 2 params:
+
 1. `promises`: (() => promises)[]
 2. `key`: that is the event name `OR` `config`:
 
 ```ts
 type TConfig = {
-  eventName: string
-  autoStart?: boolean
-  promiseMethod?: "all" | "allSettled" | "any" | "race"
-}
+  eventName: string;
+  autoStart?: boolean;
+  promiseMethod?: "all" | "allSettled" | "any" | "race";
+};
 ```
 
 <details><summary><strong>Quick Examples</strong></summary>
@@ -135,7 +139,11 @@ createWatchEvent([promise1, promise2], {
 <details><summary><strong>Example</strong></summary>
 
 ```ts
-import { createWatchEvent, startEvents, onResolveEvents } from "promise-with-events";
+import {
+  createWatchEvent,
+  startEvents,
+  onResolveEvents,
+} from "promise-with-events";
 
 const promiseExample1 = () => {
   return new Promise((resolve) => {
@@ -143,13 +151,16 @@ const promiseExample1 = () => {
   });
 };
 
-createWatchEvent(promiseExample1, "key1")
+createWatchEvent(promiseExample1, "key1");
 
-startEvents(["key1"])
+startEvents(["key1"]);
 
-onResolveEvents((error, resolve1) => {
-  console.log(resolve1) //output = "example1"
-}, ["key1"])
+onResolveEvents(
+  (error, resolve1) => {
+    console.log(resolve1); //output = "example1"
+  },
+  ["key1"]
+);
 ```
 
 </details>
@@ -159,7 +170,11 @@ onResolveEvents((error, resolve1) => {
 <details><summary><strong>Example</strong></summary>
 
 ```ts
-import { createWatchEvent, startEvents, onResolveEvents } from "promise-with-events";
+import {
+  createWatchEvent,
+  startEvents,
+  onResolveEvents,
+} from "promise-with-events";
 
 const promiseExample1 = () => {
   return new Promise((resolve) => {
@@ -173,13 +188,16 @@ const promiseExample2 = () => {
   });
 };
 
-createWatchEvent([promiseExample1, promiseExample2], "key1")
+createWatchEvent([promiseExample1, promiseExample2], "key1");
 
-startEvents(["key1"])
+startEvents(["key1"]);
 
-onResolveEvents((error, resolve1) => {
-  console.log(resolve1) //output = ["example1", "example2"]
-}, ["key1"])
+onResolveEvents(
+  (error, resolve1) => {
+    console.log(resolve1); //output = ["example1", "example2"]
+  },
+  ["key1"]
+);
 ```
 
 </details>
@@ -189,7 +207,11 @@ onResolveEvents((error, resolve1) => {
 <details><summary><strong>Example</strong></summary>
 
 ```ts
-import { createWatchEvent, startEvents, onResolveEvents } from "promise-with-events";
+import {
+  createWatchEvent,
+  startEvents,
+  onResolveEvents,
+} from "promise-with-events";
 
 const promiseExample1 = () => {
   return new Promise((resolve) => {
@@ -215,23 +237,26 @@ const promiseExample4 = () => {
   });
 };
 
-createWatchEvent([promiseExample1, promiseExample2], "key1")
+createWatchEvent([promiseExample1, promiseExample2], "key1");
 
-createWatchEvent([promiseExample3, promiseExample4], "key2")
+createWatchEvent([promiseExample3, promiseExample4], "key2");
 
-startEvents(["key1", "key2"])
+startEvents(["key1", "key2"]);
 
-onResolveEvents((error, resolve1, resolve2) => {
-  console.log(resolve1) //output = ["example1", "example2"]
-  console.log(resolve2) //output = ["example3", "example4"]
-}, ["key1", "key2"])
+onResolveEvents(
+  (error, resolve1, resolve2) => {
+    console.log(resolve1); //output = ["example1", "example2"]
+    console.log(resolve2); //output = ["example3", "example4"]
+  },
+  ["key1", "key2"]
+);
 ```
 
 </details>
 
 ### Auto Start
 
-**Note**: `startEvents` doesn't  works with `autoStart` active
+**Note**: `startEvents` doesn't works with `autoStart` active
 **Possible values**: `true` | `false` (**default value** = `true`)
 
 <details><summary><strong>Example</strong></summary>
@@ -254,11 +279,14 @@ const promiseExample2 = () => {
 createWatchEvent([promiseExample1, promiseExample2], {
   eventName: "key1",
   autoStart: true,
-})
+});
 
-onResolveEvents((error, resolve1) => {
-  console.log(resolve1) //output = ["example1", "example2"]
-}, ["key1"])
+onResolveEvents(
+  (error, resolve1) => {
+    console.log(resolve1); //output = ["example1", "example2"]
+  },
+  ["key1"]
+);
 ```
 
 </details>
@@ -289,11 +317,14 @@ createWatchEvent([promiseExample1, promiseExample2], {
   eventName: "key1",
   autoStart: true,
   promiseMethod: "any",
-})
+});
 
-onResolveEvents((error, resolve1) => {
-  console.log(resolve1) //output = "example1"
-}, ["key1"])
+onResolveEvents(
+  (error, resolve1) => {
+    console.log(resolve1); //output = "example1"
+  },
+  ["key1"]
+);
 ```
 
 </details>
@@ -307,9 +338,9 @@ onResolveEvents((error, resolve1) => {
 ```ts
 import { startEvents } from "promise-with-events";
 
-startEvents(["key1"])
+startEvents(["key1"]);
 
-startEvents(["key1", "key2"])
+startEvents(["key1", "key2"]);
 ```
 
 </details>
@@ -317,6 +348,7 @@ startEvents(["key1", "key2"])
 ## Events
 
 All `events` receive 2 params:
+
 1. `callback`: returns error, ...responses `(response for each key)`
 2. `keys`: string[]
 
@@ -462,17 +494,26 @@ createWatchEvent([watchedPromise1, watchedPromise2], {
   promiseMethod: "all",
 });
 
-onResolveEvents((error, resolve1) => {
-  console.log(resolve1); //output = "example1"
-}, ["key1"]);
+onResolveEvents(
+  (error, resolve1) => {
+    console.log(resolve1); //output = "example1"
+  },
+  ["key1"]
+);
 
-onResolveEvents((error, resolve2) => {
-  console.log(resolve2); //output = ["example1", "example3"]
-}, ["key2"]);
+onResolveEvents(
+  (error, resolve2) => {
+    console.log(resolve2); //output = ["example1", "example3"]
+  },
+  ["key2"]
+);
 
-onResolveEvents((error, resolve3) => {
-  console.log(resolve3); //output = ["example1", ["example1", "example3"]]
-}, ["key3"]);
+onResolveEvents(
+  (error, resolve3) => {
+    console.log(resolve3); //output = ["example1", ["example1", "example3"]]
+  },
+  ["key3"]
+);
 ```
 
 </details>
@@ -512,7 +553,7 @@ To contribute, make sure to follow the steps bellow:
    4. `semver:prerelease`: used when you submit a prerelease (ex: `1.0.0-beta.1`);
    5. `semver:bypass`: used to update docs, or something that doesn’t affect the build.
 
-> Info: Once you have merged your pull request, with all required fields, GitHub Actions will be responsible to create a new build and publish on stage environment.
+> Info: Once you have merged your pull request, with all required fields, GitHub Actions will be responsible to create a new build and publish.
 
 # License
 
