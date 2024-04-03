@@ -24,7 +24,7 @@
     "build": "parcel build",
     "prepublishOnly": "npm run build",
     "size": "size-limit dist/main.js",
-    "test": "jest src",
+    "test": "jest src --detectOpenHandles",
     "posttest": "jest-it-up"
   },
   "size-limit": [

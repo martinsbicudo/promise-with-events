@@ -1,42 +1,7 @@
 import { dispatchCustomEvent } from "../../../utils/dispatch-custom-event";
-import {
-  ICallPromiseMethod,
-  ICallPromise,
-  ICallAndStartPromises,
-} from "./types";
-import { TFunctionPromise, TPromiseWatched } from "../types";
-
-const callPromiseMethod: ICallPromiseMethod = (
-  promises,
-  promiseMethod = "all"
-) => {
-  if (promises.length === 1) return promises[0];
-
-  const allowedPromiseMethods = {
-    all: () => Promise.all(promises),
-    allSettled: () =>
-      Promise.allSettled(promises).then(([...responses]: any[]) =>
-        responses.map((response) => response.value)
-      ),
-    any: () => Promise.any(promises),
-    race: () => Promise.race(promises),
-  };
-
-  return allowedPromiseMethods[promiseMethod]();
-};
-
-export const callPromise: ICallPromise = (
-  promise: TPromiseWatched | TFunctionPromise
-) => {
-  if (typeof promise === "function") return promise();
-
-  if ("waitingWatchedEventName" in promise) {
-    const eventName = promise.waitingWatchedEventName;
-    dispatchCustomEvent(`start.${eventName}`);
-  }
-
-  return promise;
-};
+import { ICallAndStartPromises } from "./types";
+import { callPromise } from "./call-promise";
+import { callPromiseMethod } from "./call-promise-method";
 
 export const callAndStartPromises: ICallAndStartPromises = (
   promises,
@@ -49,9 +14,10 @@ export const callAndStartPromises: ICallAndStartPromises = (
 
     try {
       dispatchCustomEvent(`start.${eventName}`, promiseMethod);
-      const startedPromises = Array.isArray(promises)
+      let startedPromises = Array.isArray(promises)
         ? promises.map((promise) => callPromise(promise))
         : [callPromise(promises)];
+      startedPromises = startedPromises.filter((promise) => Boolean(promise));
       response = await callPromiseMethod(startedPromises, promiseMethod);
       resolve(response);
       dispatchCustomEvent(`resolve.${eventName}`, response);
